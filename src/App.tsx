@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
-import type { Session } from "@supabase/supabase-js"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import type { Session } from "@supabase/supabase-js"
 import { supabase } from "./lib/supabase"
+import Landing from "./pages/Landing"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Dashboard from "./pages/Dashboard"
 import Patients from "./pages/Patients"
-import Settings from "./pages/Settings"
 import PatientProfile from "./pages/PatientProfile"
 import Alerts from "./pages/Alerts"
+import Settings from "./pages/Settings"
 
 function LoadingScreen() {
   return (
@@ -23,7 +24,6 @@ function LoadingScreen() {
           Clinic<span className="text-teal-400">Pulse</span>
         </span>
       </div>
-
       <div className="flex gap-1.5">
         <div className="w-2 h-2 rounded-full bg-teal-400 animate-bounce [animation-delay:0ms]" />
         <div className="w-2 h-2 rounded-full bg-teal-400 animate-bounce [animation-delay:150ms]" />
@@ -58,38 +58,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/login"
-          element={!session ? <Login /> : <Navigate to="/dashboard" />}
-        />
-        <Route
-          path="/register"
-          element={!session ? <Register /> : <Navigate to="/dashboard" />}
-        />
-        <Route
-          path="/dashboard"
-          element={session ? <Dashboard /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="*"
-          element={<Navigate to={session ? "/dashboard" : "/login"} />}
-        />
-        <Route
-          path="/patients"
-          element={session ? <Patients /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/settings"
-          element={session ? <Settings /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/patients/:id"
-          element={session ? <PatientProfile /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/alerts"
-          element={session ? <Alerts /> : <Navigate to="/login" />}
-        />
+        <Route path="/" element={!session ? <Landing /> : <Navigate to="/dashboard" />} />
+        <Route path="/login" element={!session ? <Login /> : <Navigate to="/dashboard" />} />
+        <Route path="/register" element={!session ? <Register /> : <Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/patients" element={session ? <Patients /> : <Navigate to="/login" />} />
+        <Route path="/patients/:id" element={session ? <PatientProfile /> : <Navigate to="/login" />} />
+        <Route path="/alerts" element={session ? <Alerts /> : <Navigate to="/login" />} />
+        <Route path="/settings" element={session ? <Settings /> : <Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to={session ? "/dashboard" : "/login"} />} />
       </Routes>
     </BrowserRouter>
   )
