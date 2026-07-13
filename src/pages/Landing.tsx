@@ -1124,9 +1124,8 @@ function Footer() {
           </div>
         ))}
       </div>
-      <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-3 justify-between text-xs text-slate-500">
+      <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-3 justify-center text-xs text-slate-500">
         <p>© 2026 ClinicPulse. All rights reserved.</p>
-        <p>Built by a solo founder in Nigeria 🇳🇬</p>
       </div>
     </footer>
   );
