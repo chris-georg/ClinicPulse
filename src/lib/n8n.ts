@@ -9,7 +9,7 @@ export const triggerPatientCheckin = async (patientData: {
   clinic_name: string
 }) => {
   try {
-    const response = await fetch(`${N8N_URL}/webhook-test/patient-checkin`, {
+    const response = await fetch(`${N8N_URL}/webhook/patient-checkin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
