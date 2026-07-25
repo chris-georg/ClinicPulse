@@ -50,7 +50,7 @@ export default function PatientRetentionGuide() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
         <Seo
-         title="The Complete Patient Retention Guide for GLP-1 Clinics"
+         title="Patient Retention Guide for GLP-1 Clinics"
          description="Why GLP-1 patients quit, when the drop-off actually happens, and the check-in cadence that keeps patients past month 3."
          path="/patient-retention-guide"
         />

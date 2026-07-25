@@ -1,6 +1,7 @@
 import { ArrowRight, BriefcaseBusiness, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Nav, Footer } from "../components/SiteChrome";
+import { Seo } from "../components/Seo";
 
 const studies = [
   {
@@ -31,6 +32,11 @@ export default function CaseStudies() {
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
+        <Seo
+                 title="Case Studies"
+                 description="How GLP-1 Clinics Improve Retention with ClinicPulse"
+                 path="/case-studies"
+                />
         <Nav />
 
       {/* Hero */}
