@@ -6,8 +6,8 @@ export default async function handler(
   res: VercelResponse
 ) {
   const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_ANON_KEY!
+    process.env.VITE_SUPABASE_URL!,
+    process.env.VITE_SUPABASE_ANON_KEY!
   );
 
   const { data: posts, error } = await supabase
