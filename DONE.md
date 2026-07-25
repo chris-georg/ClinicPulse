@@ -12,3 +12,7 @@
 - Make the Dashboard update with data sent from Database
 - Design the color of data sent from Database
 - Stop email from sending after deleting
+
+# Notes
+
+- Domain URL added in robots.txt, sitemap.ts

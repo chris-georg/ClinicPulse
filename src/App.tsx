@@ -10,6 +10,15 @@ import Patients from "./pages/Patients"
 import PatientProfile from "./pages/PatientProfile"
 import Alerts from "./pages/Alerts"
 import Settings from "./pages/Settings"
+import Pricing from "./pages/Pricing"
+import PatientRetentionGuide from "./pages/PatientRetentionGuide"
+import CaseStudies from "./pages/CaseStudies";
+import ScrollToHash from "./components/ScrollToHash";
+import Blog from "./pages/resources/Blog"
+import BlogPost from "./pages/resources/BlogPost"
+import AdminBlog from "./pages/admin/AdminBlog"
+import { RequireAdmin } from "./components/RequireAdmin"
+import { HelmetProvider } from "react-helmet-async"
 
 function LoadingScreen() {
   return (
@@ -56,19 +65,28 @@ function App() {
   if (loading) return <LoadingScreen />
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={!session ? <Landing /> : <Navigate to="/dashboard" />} />
-        <Route path="/login" element={!session ? <Login /> : <Navigate to="/dashboard" />} />
-        <Route path="/register" element={!session ? <Register /> : <Navigate to="/dashboard" />} />
-        <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/login" />} />
-        <Route path="/patients" element={session ? <Patients /> : <Navigate to="/login" />} />
-        <Route path="/patients/:id" element={session ? <PatientProfile /> : <Navigate to="/login" />} />
-        <Route path="/alerts" element={session ? <Alerts /> : <Navigate to="/login" />} />
-        <Route path="/settings" element={session ? <Settings /> : <Navigate to="/login" />} />
-        <Route path="*" element={<Navigate to={session ? "/dashboard" : "/login"} />} />
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <ScrollToHash />
+        <Routes>
+          <Route path="/" element={!session ? <Landing /> : <Navigate to="/dashboard" />} />
+          <Route path="/login" element={!session ? <Login /> : <Navigate to="/dashboard" />} />
+          <Route path="/register" element={!session ? <Register /> : <Navigate to="/dashboard" />} />
+          <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path="/patients" element={session ? <Patients /> : <Navigate to="/login" />} />
+          <Route path="/patients/:id" element={session ? <PatientProfile /> : <Navigate to="/login" />} />
+          <Route path="/alerts" element={session ? <Alerts /> : <Navigate to="/login" />} />
+          <Route path="/settings" element={session ? <Settings /> : <Navigate to="/login" />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/patient-retention-guide" element={<PatientRetentionGuide />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/resources/blog" element={<Blog />} />
+          <Route path="/resources/blog/:slug" element={<BlogPost />} />
+          <Route path="/admin/blog" element={<RequireAdmin><AdminBlog /></RequireAdmin>} />
+          <Route path="*" element={<Navigate to={session ? "/dashboard" : "/login"} />} />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   )
 }
 
