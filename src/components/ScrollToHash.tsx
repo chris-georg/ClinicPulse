@@ -5,7 +5,10 @@ export default function ScrollToHash() {
   const { hash, pathname } = useLocation();
 
   useEffect(() => {
-    if (!hash) return;
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
 
     const id = hash.substring(1);
 

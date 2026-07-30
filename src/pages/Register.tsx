@@ -1,18 +1,21 @@
-import { useState } from "react"
-import { supabase } from "../lib/supabase"
+import { useState } from "react";
+import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 export default function Register() {
-  const [clinicName, setClinicName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState(false)
+  const [clinicName, setClinicName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
     const { error } = await supabase.auth.signUp({
       email,
@@ -22,28 +25,26 @@ export default function Register() {
           clinic_name: clinicName,
         },
       },
-    })
+    });
 
     if (error) {
-      setError(error.message)
-      setLoading(false)
-      return
+      setError(error.message);
+      setLoading(false);
+      return;
     }
 
-    setSuccess(true)
-    setLoading(false)
-  }
+    setSuccess(true);
+    setLoading(false);
+  };
 
   if (success) {
     return (
       <div className="min-h-screen bg-slate-950 text-white relative overflow-hidden flex items-center justify-center px-6">
-
         <div className="absolute top-0 left-0 w-125 h-125] bg-teal-500/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-125 h-125 bg-emerald-500/20 rounded-full blur-3xl" />
 
         <div className="relative z-10 w-full max-w-md">
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10 text-center">
-
             <div className="w-20 h-20 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6">
               <svg
                 className="w-10 h-10 text-emerald-400"
@@ -60,13 +61,11 @@ export default function Register() {
               </svg>
             </div>
 
-            <h2 className="text-3xl font-bold mb-3">
-              Check Your Email
-            </h2>
+            <h2 className="text-3xl font-bold mb-3">Check Your Email</h2>
 
             <p className="text-slate-400 leading-relaxed">
-              We've sent a confirmation link to your email address.
-              Click the link to activate your ClinicPulse account.
+              We've sent a confirmation link to your email address. Click the
+              link to activate your ClinicPulse account.
             </p>
 
             <a
@@ -78,38 +77,51 @@ export default function Register() {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-slate-950 text-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 pt-8">
+        <button
+          onClick={() => navigate("/")}
+          className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors group"
+        >
+          <div className="h-10 w-10 flex items-center justify-center group-hover:border-teal-500/30 transition-colors">
+            <ArrowLeft className="w-4 h-4" />
+          </div>
 
-      {/* Background Glow */}
-      <div className="absolute top-0 left-0 w-125 h-125 bg-teal-500/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-125 h-125 bg-emerald-500/20 rounded-full blur-3xl" />
+          <span className="text-sm font-medium">Back to Home</span>
+        </button>
+      </div>
+      {/* Premium Background Glows */}
+      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-teal-500/8 blur-[140px] pointer-events-none" />
+
+      <div className="absolute -left-48 top-1/3 w-[420px] h-[420px] rounded-full bg-cyan-500/6 blur-[120px] pointer-events-none" />
+
+      <div className="absolute -right-48 bottom-0 w-[420px] h-[420px] rounded-full bg-indigo-500/6 blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
         <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
-
           {/* Left Side */}
           <div className="hidden lg:block">
             <div className="max-w-lg">
-
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-sm mb-6">
-                Join Leading GLP-1 Clinics
+                Trusted by Modern GLP-1 Practices
               </div>
 
               <h1 className="text-5xl font-bold leading-tight">
-                Every Patient You Keep
-                <span className="block text-teal-400">
-                  Is Revenue You Earned
+                Keep More Patients
+                <span className="gradient-text">
+                  Engaged Throughout Treatment.
                 </span>
               </h1>
 
               <p className="mt-6 text-slate-400 text-lg leading-relaxed">
-                Set up automated check-ins, track adherence signals,
-                and get alerted the moment a patient shows signs of
-                dropping off.
+                ClinicPulse helps GLP-1 clinics automate patient follow-up,
+                identify disengagement early, and improve long-term
+                retention—all from one intelligent platform built specifically
+                for modern weight-loss practices.
               </p>
 
               <div className="mt-10 space-y-4">
@@ -117,14 +129,14 @@ export default function Register() {
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-teal-400" />
                   <span className="text-slate-300">
-                    Automated SMS Check-In Sequences
+                    Automated Check-In Sequences
                   </span>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-teal-400" />
                   <span className="text-slate-300">
-                    Patient Risk Scoring & Alerts
+                    Patient Risk Detection & Alerts
                   </span>
                 </div>
 
@@ -138,37 +150,21 @@ export default function Register() {
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-teal-400" />
                   <span className="text-slate-300">
-                     Per-Clinic Workflow Automation
+                     Smart Automation
                   </span>
                 </div>
 
               </div>
-
-              <div className="mt-12 p-5 rounded-2xl bg-white/5 border border-white/10">
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  "We were losing patients in month 2 and had no system
-                  to catch them. ClinicPulse flags at-risk patients before
-                  they ghost us completely."
-                </p>
-
-                <p className="text-teal-400 text-sm mt-3 font-medium">
-                  — GLP-1 Clinic Owner, Texas
-                </p>
-              </div>
-
             </div>
           </div>
 
           {/* Register Card */}
           <div className="w-full max-w-lg mx-auto">
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
-
               <div className="mb-8">
                 <h2 className="text-4xl font-bold">
                   Clinic
-                  <span className="text-teal-400">
-                    Pulse
-                  </span>
+                  <span className="gradient-text">Pulse</span>
                 </h2>
 
                 <p className="text-slate-400 mt-2">
@@ -183,7 +179,6 @@ export default function Register() {
               )}
 
               <form onSubmit={handleRegister} className="space-y-5">
-
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">
                     Clinic Name
@@ -280,8 +275,7 @@ export default function Register() {
                     rounded-xl
                     font-semibold
                     bg-linear-to-r
-                    from-teal-500
-                    to-emerald-500
+                    gradient-button
                     hover:scale-[1.02]
                     hover:shadow-lg
                     hover:shadow-teal-500/20
@@ -291,19 +285,14 @@ export default function Register() {
                     disabled:hover:scale-100
                   "
                 >
-                  {loading
-                    ? "Creating Account..."
-                    : "Create Account"}
+                  {loading ? "Creating Account..." : "Create Account"}
                 </button>
               </form>
 
               <div className="mt-6 text-center">
                 <p className="text-sm text-slate-500">
                   Already have an account?{" "}
-                  <a
-                    href="/login"
-                    className="text-teal-400 hover:text-teal-300 font-medium"
-                  >
+                  <a href="/login" className="gradient-text font-medium">
                     Sign In
                   </a>
                 </p>
@@ -314,12 +303,10 @@ export default function Register() {
                   Secure setup • Encrypted authentication • HIPAA-ready workflow
                 </p>
               </div>
-
             </div>
           </div>
-
         </div>
       </div>
     </div>
-  )
+  );
 }

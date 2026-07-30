@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Check, Minus, CircleDollarSign  } from "lucide-react";
 import { Nav, Footer } from "../components/SiteChrome";
+import { Seo } from "../components/Seo";
 
 function PricingPage() {
   const [annual, setAnnual] = useState(false);
@@ -10,8 +11,8 @@ function PricingPage() {
   const tiers = [
     {
       name: "Starter",
-      monthly: 99,
-      annualPrice: 79,
+      monthly: 199,
+      annualPrice: 179,
       subtitle: "For solo practitioners just getting started",
       badge: null as { label: string; className: string } | null,
       highlight: false,
@@ -161,6 +162,11 @@ function PricingPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <Seo
+              title="Pricing"
+              description="Simple, transparent pricing for clinics of all sizes."
+              path="/pricing"
+            />
       <Nav />
 
       {/* Page header */}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, SquareArrowOutUpRight } from "lucide-react";
 
 export function Logo() {
   const navigate = useNavigate();
@@ -39,9 +39,37 @@ const RESOURCE_LINKS = [
     body: "Notes on running a cash-pay GLP-1 practice.",
   },
   {
-    href: "/resources/building-in-public",
-    title: "Building in Public",
-    body: "Follow ClinicPulse being built, in the open.",
+    href: "/about-us",
+    title: "About Us",
+    body: "Learn more about the team behind ClinicPulse.",
+  },
+];
+
+const HELP_LINKS = [
+  {
+    href: "/help-center",
+    title: "Help Center",
+    body: "Answers on setup, automation, billing and more.",
+  },
+  {
+    href: "/contact-support",
+    title: "Contact Support",
+    body: "Reach a real person, not a bot.",
+  },
+  {
+    href: "/book-demo",
+    title: "Book a Demo",
+    body: "See ClinicPulse working with your patients.",
+  },
+  {
+    href: "/system-status",
+    title: "System Status",
+    body: "Live status of check-ins, alerts and uptime.",
+  },
+  {
+    href: "/#faq",
+    title: "FAQ",
+    body: "Frequently asked questions.",
   },
 ];
 
@@ -49,9 +77,12 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
   const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+  const [mobileHelpOpen, setMobileHelpOpen] = useState(false);
   const navigate = useNavigate();
   const resourcesRef = useRef<HTMLDivElement>(null);
+  const helpRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -67,9 +98,15 @@ export function Nav() {
       ) {
         setResourcesOpen(false);
       }
+      if (helpRef.current && !helpRef.current.contains(e.target as Node)) {
+        setHelpOpen(false);
+      }
     };
     const onEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setResourcesOpen(false);
+      if (e.key === "Escape") {
+        setResourcesOpen(false);
+        setHelpOpen(false);
+      }
     };
     document.addEventListener("mousedown", onClickOutside);
     document.addEventListener("keydown", onEscape);
@@ -82,7 +119,6 @@ export function Nav() {
   const links = [
     { href: "/#features", label: "Features" },
     { href: "/#how", label: "How It Works" },
-    { href: "/#faq", label: "FAQ" },
   ];
 
   return (
@@ -123,7 +159,6 @@ export function Nav() {
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4">
                 <div className="w-[1180px] max-w-[calc(100vw-48px)] rounded-3xl border border-white/10 bg-slate-950/95 backdrop-blur-xl shadow-2xl shadow-black/50 p-10">
                   <div className="flex items-start gap-20">
-                    {/* Left intro block */}
                     <div className="w-[320px] shrink-0">
                       <img
                         src="/resources-cover.png"
@@ -141,7 +176,6 @@ export function Nav() {
                       </p>
                     </div>
 
-                    {/* Links */}
                     <div className="flex-1 grid grid-cols-2 gap-x-16 gap-y-10">
                       {RESOURCE_LINKS.map((r) => (
                         <a
@@ -153,6 +187,75 @@ export function Nav() {
                           <h4 className="text-xl font-semibold text-white group-hover:text-teal-300 transition-colors">
                             {r.title}
                           </h4>
+
+                          <p className="mt-2 text-sm leading-7 text-slate-400">
+                            {r.body}
+                          </p>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Help & Support dropdown */}
+          <div
+            ref={helpRef}
+            className="relative"
+            onMouseEnter={() => setHelpOpen(true)}
+            onMouseLeave={() => setHelpOpen(false)}
+          >
+            <button
+              onClick={() => setHelpOpen((v) => !v)}
+              className="text-sm text-slate-300 brand-hover transition-colors flex items-center gap-1"
+            >
+              Help & Support
+              <ChevronDown
+                className={`h-3.5 w-3.5 transition-transform duration-200 ${helpOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {helpOpen && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4">
+                <div className="w-[1180px] max-w-[calc(100vw-48px)] rounded-3xl border border-white/10 bg-slate-950/95 backdrop-blur-xl shadow-2xl shadow-black/50 p-10">
+                  <div className="flex items-start gap-20">
+                    <div className="w-[320px] shrink-0">
+                      <img
+                        src="/help-cover.png"
+                        alt="Help & Support"
+                        className="h-48 w-full rounded-2xl object-cover"
+                      />
+
+                      <h3 className="mt-6 text-3xl font-bold text-white">
+                        Help & Support
+                      </h3>
+
+                      <p className="mt-4 text-slate-400 leading-relaxed">
+                        Everything you need to get help, book time with us, or
+                        check that things are running smoothly.
+                      </p>
+                    </div>
+
+                    <div className="flex-1 grid grid-cols-2 gap-x-16 gap-y-10">
+                      {HELP_LINKS.map((r) => (
+                        <a
+                          key={r.href}
+                          href={r.href}
+                          onClick={() => setHelpOpen(false)}
+                          className="group block"
+                        >
+                          <div className="flex items-center gap-2">
+                            <h4 className="text-xl font-semibold text-white group-hover:text-teal-300 transition-colors">
+                              {r.title}
+                            </h4>
+
+                            {(r.title === "Help Center" ||
+                              r.title === "Contact Support") && (
+                              <SquareArrowOutUpRight className="h-4 w-4 text-teal-400 group-hover:text-teal-300 transition-colors" />
+                            )}
+                          </div>
 
                           <p className="mt-2 text-sm leading-7 text-slate-400">
                             {r.body}
@@ -236,6 +339,36 @@ export function Nav() {
             )}
           </div>
 
+          {/* Mobile Help & Support — expandable */}
+          <div>
+            <button
+              onClick={() => setMobileHelpOpen((v) => !v)}
+              className="w-full flex items-center justify-between text-slate-300 brand-hover"
+            >
+              Help & Support
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-200 ${mobileHelpOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+            {mobileHelpOpen && (
+              <div className="mt-3 ml-3 space-y-3 border-l border-white/10 pl-4">
+                {HELP_LINKS.map((r) => (
+                  <a
+                    key={r.href}
+                    href={r.href}
+                    onClick={() => {
+                      setOpen(false);
+                      setMobileHelpOpen(false);
+                    }}
+                    className="block text-sm text-slate-400 hover:text-white transition-colors"
+                  >
+                    {r.title}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
           <a
             href="/pricing"
             onClick={() => setOpen(false)}
@@ -278,10 +411,9 @@ export function Footer() {
     {
       t: "Company",
       links: [
-        { label: "About us", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Building in Public", href: "#" },
-        { label: "Contact", href: "#" },
+        { label: "About us", href: "/about-us" },
+        { label: "Blog", href: "/resources/blog" },
+        { label: "Contact", href: "/contact-support" },
       ],
     },
     {
@@ -298,17 +430,17 @@ export function Footer() {
       links: [
         { label: "Patient Retention Guide", href: "/patient-retention-guide" },
         { label: "Case Studies", href: "/case-studies" },
-        { label: "Blog", href: "#" },
-        { label: "Building in Public", href: "#" },
+        { label: "Blog", href: "/resources/blog" },
+        { label: "About us", href: "/about-us" },
       ],
     },
     {
       t: "Help & Support",
       links: [
-        { label: "Help Center", href: "#" },
-        { label: "Contact Support", href: "#" },
-        { label: "Book a Demo", href: "#" },
-        { label: "System Status", href: "#" },
+        { label: "Help Center", href: "/help-center" },
+        { label: "Contact Support", href: "/contact-support" },
+        { label: "Book a Demo", href: "/book-demo" },
+        { label: "System Status", href: "/system-status" },
       ],
     },
     {
@@ -347,6 +479,7 @@ export function Footer() {
           {cols.map((c) => (
             <div key={c.t} className="w-44">
               <p className="text-sm font-semibold text-white">{c.t}</p>
+
               <ul className="mt-4 space-y-2.5">
                 {c.links.map((link) => (
                   <li key={link.label}>
@@ -361,6 +494,16 @@ export function Footer() {
               </ul>
             </div>
           ))}
+
+          {/* Footer Brand Visual */}
+          <div className="w-70 flex items-center justify-end">
+            <img
+              src="/hipaaa.png"
+              alt="ClinicPulse"
+              className="w-36 opacity-430"
+              draggable={false}
+            />
+          </div>
         </div>
       </div>
 

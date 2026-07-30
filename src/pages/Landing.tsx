@@ -6,6 +6,7 @@ import { Seo } from "../components/Seo";
 import {
   Activity,
   AlertTriangle,
+  // ArrowRight,
   Bell,
   Brain,
   BrainCircuit,
@@ -46,7 +47,11 @@ function Reveal({
       className={`reveal ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <Seo title="ClinicPulse" description="The patient retention platform for GLP-1 clinics. Catch dropout before it happens." path="/" />
+      <Seo
+        title="ClinicPulse"
+        description="The patient retention platform for GLP-1 clinics. Catch dropout before it happens."
+        path="/"
+      />
       {children}
     </div>
   );
@@ -227,7 +232,10 @@ function Hero() {
 
 function SocialProof() {
   const clinics = [
-    { name: "Vitality Weight Clinic", logo: "/vitality-weight-clinic-logo.png"},
+    {
+      name: "Vitality Weight Clinic",
+      logo: "/vitality-weight-clinic-logo.png",
+    },
     { name: "Everwell Medical Weight Loss", logo: "/Everwell-clinics.png" },
     { name: "NextGen Telehealth", logo: "/nextgen-telehealth.png" },
     { name: "SlimPath Wellness", logo: "/slimpath-wellness.png" },
@@ -245,8 +253,11 @@ function SocialProof() {
   return (
     <section className="py-16 border-y border-white/5 bg-slate-950/50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 text-center">
+        <p className="brand-pill inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-3">
+          Clinic Types We Serve
+        </p>
         <p className="text-xs font-semibold tracking-[0.2em] text-slate-500 uppercase mb-8">
-          Trusted by GLP-1 Clinics Across the United States
+          Built for the clinics leading the next generation of GLP-1 care
         </p>
       </div>
 
@@ -568,6 +579,9 @@ function DashboardPreview() {
 
       <div className="max-w-7xl mx-auto px-6 relative">
         <Reveal className="text-center max-w-2xl mx-auto">
+          <p className="brand-pill inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-3">
+            Live Clinic Dashboard
+          </p>
           <h2 className="text-4xl md:text-5xl font-bold">
             Your Entire Patient Panel.
             <br />
@@ -595,7 +609,7 @@ function DashboardPreview() {
                     <div className="flex justify-between items-center px-3 py-2 text-sm text-slate-400">
                       Alerts
                       <span className="bg-red-500 text-white rounded-full px-2 text-[10px]">
-                        3
+                        9
                       </span>
                     </div>
 
@@ -745,59 +759,286 @@ function DashboardPreview() {
 function Features() {
   const features = [
     {
+      category: "Automation",
       icon: Mail,
       title: "Automated Check-in Sequences",
-      desc: "Scheduled emails go out automatically at Week 1, Week 2, and Months 1–6. Every patient gets consistent follow-up without your staff lifting a finger.",
+      desc: "Automatically sends personalized follow-up emails from Week 1 through Month 6 so every patient stays engaged without adding work for your staff.",
+      visual: "checkins",
     },
     {
+      category: "AI",
       icon: BrainCircuit,
-      title: "AI Sentiment Detection",
-      desc: "Every patient reply is analyzed by ClinicPulse's AI. Positive, neutral or negative sentiment detected instantly. Risk levels update automatically based on what patients say.",
+      title: "Know Which Patients Need Help",
+      desc: "Every patient reply is analyzed instantly. ClinicPulse's AI detects positive, neutral, or negative sentiment and updates risk levels automatically.",
+      visual: "ai",
     },
     {
+      category: "Dashboard",
       icon: Activity,
       title: "Real-Time Risk Dashboard",
-      desc: "See every patient's status at a glance. Active, At Risk, Dropped Off. Color-coded. Filterable. Updated in real time without refreshing.",
+      desc: "See every patient's status at a glance with live updates, powerful filters, and color-coded risk levels.",
+      visual: "dashboard",
     },
     {
+      category: "Alerts",
       icon: Bell,
       title: "Instant Clinic Alerts",
-      desc: "The moment a patient goes silent or sends a worrying reply, your clinic receives an email alert with the patient's name, medication and their exact response.",
+      desc: "Receive immediate notifications whenever a patient goes silent or sends a concerning reply, complete with the patient's response.",
+      visual: "alerts",
     },
     {
+      category: "Patient Profile",
       icon: Clock,
-      title: "Full Patient Timeline",
-      desc: "Every check-in sent, every reply received, every risk flag triggered — all logged in a visual timeline on each patient's profile. Full audit trail, always.",
+      title: "Complete Patient Timeline",
+      desc: "Every check-in, every reply, and every risk change is stored in a clean visual timeline inside each patient's profile.",
+      visual: "timeline",
     },
     {
+      category: "Analytics",
       icon: TrendingUp,
       title: "Risk History Tracking",
-      desc: "Track how each patient's risk level has changed over time. Spot patterns. Understand which medications have higher dropout rates in your practice.",
+      desc: "Track how patient engagement changes over time and identify trends before dropouts impact your clinic.",
+      visual: "history",
     },
   ];
+
+  function FeatureVisual({ type }: { type: string }) {
+    if (type === "checkins") {
+      const rows = [
+        { label: "Week 1", done: true },
+        { label: "Week 2", done: true },
+        { label: "Month 1", done: true },
+        { label: "Month 2", done: false },
+        { label: "Month 3", done: false },
+      ];
+      return (
+        <div className="w-full h-full p-5 flex flex-col justify-center gap-2">
+          {rows.map((r) => (
+            <div
+              key={r.label}
+              className="flex items-center gap-3 rounded-lg px-3 py-2 bg-white/[0.03] border border-white/5"
+            >
+              <div
+                className={`h-4 w-4 rounded-full flex items-center justify-center shrink-0 ${
+                  r.done
+                    ? "bg-teal-500/20 border border-teal-400"
+                    : "bg-white/5 border border-white/10"
+                }`}
+              >
+                {r.done && (
+                  <Check
+                    className="h-2.5 w-2.5 text-teal-300"
+                    strokeWidth={4}
+                  />
+                )}
+              </div>
+              <span
+                className={`text-xs ${r.done ? "text-slate-300" : "text-slate-500"}`}
+              >
+                {r.label}
+              </span>
+              <span
+                className={`ml-auto text-[10px] ${r.done ? "text-teal-400" : "text-slate-600"}`}
+              >
+                {r.done ? "Sent" : "Scheduled"}
+              </span>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (type === "ai") {
+      const replies = [
+        {
+          text: "Feeling great, no complaints!",
+          tag: "Positive",
+          c: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+        },
+        {
+          text: "It's okay, I guess.",
+          tag: "Neutral",
+          c: "bg-amber-500/15 text-amber-300 border-amber-500/30",
+        },
+        {
+          text: "The nausea is unbearable.",
+          tag: "Negative",
+          c: "bg-red-500/15 text-red-300 border-red-500/30",
+        },
+      ];
+      return (
+        <div className="w-full h-full p-5 flex flex-col justify-center gap-2.5">
+          {replies.map((r) => (
+            <div
+              key={r.text}
+              className="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 bg-white/[0.03] border border-white/5"
+            >
+              <p className="text-xs text-slate-300 truncate">"{r.text}"</p>
+              <span
+                className={`text-[10px] font-medium px-2 py-1 rounded-full border shrink-0 ${r.c}`}
+              >
+                {r.tag}
+              </span>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (type === "dashboard") {
+      const stats = [
+        { label: "Active", value: "31", c: "text-emerald-300" },
+        { label: "At Risk", value: "9", c: "text-amber-300" },
+        { label: "Dropped", value: "7", c: "text-red-300" },
+      ];
+      const rows = [
+        { n: "Sarah M.", c: "bg-emerald-500" },
+        { n: "James K.", c: "bg-amber-500" },
+        { n: "Maria L.", c: "bg-red-500" },
+      ];
+      return (
+        <div className="w-full h-full p-5 flex flex-col justify-center gap-3">
+          <div className="grid grid-cols-3 gap-2">
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-lg px-2 py-2.5 bg-white/[0.03] border border-white/5 text-center"
+              >
+                <p className={`text-lg font-bold ${s.c}`}>{s.value}</p>
+                <p className="text-[9px] text-slate-500 mt-0.5">{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="space-y-1.5">
+            {rows.map((r) => (
+              <div
+                key={r.n}
+                className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 bg-white/[0.03] border border-white/5"
+              >
+                <div className={`h-5 w-5 rounded-full ${r.c} shrink-0`} />
+                <span className="text-[11px] text-slate-300">{r.n}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (type === "alerts") {
+      return (
+        <div className="w-full h-full p-5 flex flex-col justify-center gap-3">
+          <div className="flex items-center gap-2.5 rounded-xl p-3 bg-amber-500/10 border border-amber-500/25">
+            <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0" />
+            <p className="text-xs text-amber-100">
+              <span className="font-semibold">James K.</span> hasn't responded
+              in 4 days
+            </p>
+          </div>
+          <div className="flex items-center gap-2.5 rounded-xl p-3 bg-red-500/10 border border-red-500/25">
+            <Bell className="h-4 w-4 text-red-400 shrink-0" />
+            <p className="text-xs text-red-100">
+              <span className="font-semibold">Maria L.</span> sent a concerning
+              reply
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    if (type === "timeline") {
+      const events = [
+        { label: "Patient added", time: "Day 0" },
+        { label: "Week 1 check-in sent", time: "Day 7" },
+        { label: "Patient replied — Positive", time: "Day 8" },
+        { label: "Month 1 check-in sent", time: "Day 30" },
+      ];
+      return (
+        <div className="w-full h-full p-5 flex items-center">
+          <div className="relative pl-5 space-y-3.5 before:absolute before:left-[3px] before:top-1 before:bottom-1 before:w-px before:bg-white/10 w-full">
+            {events.map((e) => (
+              <div key={e.label} className="relative">
+                <div className="absolute -left-5 top-1 h-1.5 w-1.5 rounded-full bg-teal-400" />
+                <p className="text-xs text-slate-300">{e.label}</p>
+                <p className="text-[10px] text-slate-600">{e.time}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // history — simple trend bars
+    return (
+      <div className="w-full h-full flex flex-col overflow-hidden rounded-t-2xl">
+        {/* Screenshot Area */}
+        <div className="relative flex-1 bg-slate-900 border-b border-white/5">
+          <img
+            src="https://www.simplilearn.com/ice9/free_resources_article_thumb/data_analyticstrendsmin.jpg"
+            alt="Analytics Dashboard"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-between px-5 py-3 text-[10px] text-slate-500 bg-slate-950">
+          <span>Last 8 weeks</span>
+
+          <span className="flex items-center gap-2 text-teal-300 font-medium">
+            <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
+            Retention trending up
+          </span>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <section id="features" className="py-24">
+    <section id="features" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
-        <Reveal className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-            Everything Your Clinic Needs.
+        {/* Heading */}
+        <Reveal className="max-w-3xl mx-auto text-center mb-20">
+          <p className="brand-pill inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-3">
+            Everything your clinic needs
+          </p>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
+            Retain More Patients.
             <br />
-            <span className="text-slate-400">Nothing You Don't.</span>
+            <span className="gradient-text">Without Hiring More Staff.</span>
           </h2>
+          <p className="mt-7 text-slate-400 text-lg leading-8 max-w-2xl mx-auto">
+            From automated follow-ups to AI-powered dropout detection,
+            ClinicPulse was built specifically for modern GLP-1 clinics.
+          </p>
         </Reveal>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {features.map((f, i) => {
-            const Icon = f.icon;
+
+        {/* Cards */}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
             return (
-              <Reveal key={f.title} delay={i * 60}>
-                <div className="glass-card rounded-2xl p-6 h-full hover:border-teal-500/20 transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center mb-4">
-                    <Icon className="h-5 w-5 text-teal-400" />
+              <Reveal key={feature.title} delay={index * 70}>
+                <div className="glass-card rounded-3xl overflow-hidden h-full hover:-translate-y-2 hover:glow-brand hover:border-white/15 transition-all duration-300">
+                  {/* Hard-coded UI preview instead of a screenshot */}
+                  <div className="relative h-56 overflow-hidden bg-slate-900/60 border-b border-white/5">
+                    <FeatureVisual type={feature.visual} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
                   </div>
-                  <h3 className="font-semibold text-white mb-2">{f.title}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">
-                    {f.desc}
-                  </p>
+
+                  {/* Content */}
+                  <div className="p-7">
+                    <p className="text-xs uppercase tracking-[0.22em] brand-text font-semibold">
+                      {feature.category}
+                    </p>
+                    <div className="mt-5 w-11 h-11 rounded-xl brand-pill flex items-center justify-center">
+                      <Icon className="w-5 h-5 brand-text" />
+                    </div>
+                    <h3 className="mt-5 text-xl font-semibold leading-snug">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-4 text-slate-400 leading-7">
+                      {feature.desc}
+                    </p>
+                  </div>
                 </div>
               </Reveal>
             );
@@ -813,19 +1054,16 @@ function Testimonials() {
     {
       q: "We were losing patients every month and had no idea why. ClinicPulse showed us exactly who was struggling. We recovered 6 patients in the first month alone.",
       n: "Dr. Amanda Rivera",
-      t: "Everwell Medical Weight Loss",
       i: "A",
     },
     {
       q: "I run a solo telehealth practice. I can't afford to manually follow up with 200 patients. ClinicPulse does it automatically. My retention went from 52% to 78% in 60 days.",
       n: "NP Sarah Chen",
-      t: "NextGen Telehealth",
       i: "S",
     },
     {
       q: "The alert system is what sold me. Getting a text the moment a patient goes silent — before they actually quit — is exactly what we needed.",
       n: "Dr. Marcus Webb",
-      t: "PrimeCare Medical",
       i: "M",
     },
   ];
@@ -853,7 +1091,6 @@ function Testimonials() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-white">{t.n}</p>
-                    <p className="text-xs text-slate-400">{t.t}</p>
                   </div>
                 </div>
               </div>

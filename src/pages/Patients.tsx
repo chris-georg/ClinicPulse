@@ -260,7 +260,7 @@ export default function Patients() {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-linear-to-r from-teal-500 to-emerald-500 text-sm font-semibold hover:scale-[1.02] transition-all"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-linear-to-r gradient-button font-semibold hover:scale-[1.02] transition-all"
         >
           <Plus className="w-4 h-4" />
           Add Patient

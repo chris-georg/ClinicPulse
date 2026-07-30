@@ -1,7 +1,7 @@
 import { ArrowRight, BriefcaseBusiness, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Nav, Footer } from "../components/SiteChrome";
-import { Seo } from "../components/Seo";
+import { Nav, Footer } from "../../components/SiteChrome";
+import { Seo } from "../../components/Seo";
 
 const studies = [
   {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Nav, Footer } from "../components/SiteChrome";
-import { Seo } from "../components/Seo";
+import { Nav, Footer } from "../../components/SiteChrome";
+import { Seo } from "../../components/Seo";
 import {
   ArrowRight,
   Clock,
@@ -10,7 +10,6 @@ import {
   MessageSquare,
   Activity,
   ShieldAlert,
-  Mail,
   ListChecks,
   BookOpen,
 } from "lucide-react";
@@ -29,7 +28,6 @@ const SECTIONS = [
 
 export default function PatientRetentionGuide() {
   const [activeId, setActiveId] = useState(SECTIONS[0].id);
-//   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,12 +47,12 @@ export default function PatientRetentionGuide() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
-        <Seo
-         title="Patient Retention Guide for GLP-1 Clinics"
-         description="Why GLP-1 patients quit, when the drop-off actually happens, and the check-in cadence that keeps patients past month 3."
-         path="/patient-retention-guide"
-        />
-        <Nav />
+      <Seo
+        title="Patient Retention Guide for GLP-1 Clinics"
+        description="Why GLP-1 patients quit, when the drop-off actually happens, and the check-in cadence that keeps patients past month 3."
+        path="/patient-retention-guide"
+      />
+      <Nav />
 
       {/* ---------------------------------------------------------------- */}
       {/* Hero                                                             */}
@@ -406,38 +404,30 @@ export default function PatientRetentionGuide() {
             <div className="glass-card glow-teal rounded-2xl p-8 sm:p-10 text-center">
               <ListChecks className="w-8 h-8 text-teal-400 mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2">
-                Get the check-in templates and red-flag rules, ready to use
+                See this cadence running automatically
               </h3>
               <p className="text-slate-400 text-sm max-w-md mx-auto mb-6">
-                We'll send the message templates for each touchpoint above, plus
-                the exact escalation rules — free, no credit card.
+                Every touchpoint and red flag above is already built into
+                ClinicPulse — no templates to copy-paste, no spreadsheet to
+                maintain.
               </p>
-              <form
-                onSubmit={(e) => e.preventDefault()}
-                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-              >
-                <div className="relative flex-1">
-                  <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="email"
-                    required
-                    placeholder="you@clinic.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 pr-3 py-2.5 text-sm placeholder:text-slate-500 focus:outline-none focus:border-teal-400/50 focus:ring-1 focus:ring-teal-400/30"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="gradient-bg rounded-lg px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 whitespace-nowrap"
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  to="/register"
+                  className="gradient-bg rounded-lg px-6 py-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5"
                 >
-                  Send it to me
+                  Start Free Trial
                   <ArrowRight className="w-4 h-4" />
-                </button>
-              </form>
-              <p className="text-xs text-slate-600 mt-4">
-                Prefer to see it running automatically?{" "}
-                <Link to="/register" className="text-teal-400 hover:underline">
-                  Start a free ClinicPulse trial
                 </Link>
+                <Link
+                  to="/book-demo"
+                  className="border border-white/15 rounded-lg px-6 py-3 text-sm font-semibold text-white hover:bg-white/5 transition-colors flex items-center justify-center"
+                >
+                  Book a Demo
+                </Link>
+              </div>
+              <p className="text-xs text-slate-600 mt-4">
+                No credit card required · 14-day free trial
               </p>
             </div>
           </section>
@@ -453,7 +443,7 @@ export default function PatientRetentionGuide() {
           <div className="grid sm:grid-cols-3 gap-4">
             {[
               {
-                to: "/resources/case-studies",
+                to: "/case-studies",
                 title: "Case Studies",
                 body: "How independent clinics are using retention data day to day.",
               },
@@ -463,9 +453,9 @@ export default function PatientRetentionGuide() {
                 body: "Notes on running a cash-pay GLP-1 practice.",
               },
               {
-                to: "/resources/building-in-public",
-                title: "Building in Public",
-                body: "Follow ClinicPulse being built, in the open.",
+                to: "/about-us",
+                title: "About Us",
+                body: "Learn more about the team behind ClinicPulse.",
               },
             ].map((r) => (
               <Link
@@ -486,7 +476,7 @@ export default function PatientRetentionGuide() {
         </div>
       </section>
 
-       <Footer />
+      <Footer />
     </div>
   );
 }
